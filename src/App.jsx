@@ -4,6 +4,7 @@ import { PlusIcon, CheckIcon, TrashIcon } from '@heroicons/react/solid';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
+  
 
   const addTask = () => {
     if (input.trim() !== '') {
