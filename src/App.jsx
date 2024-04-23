@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
 import { PlusIcon, CheckIcon, TrashIcon } from '@heroicons/react/solid';
+import { useTasks } from './TaskContext';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [input, setInput] = useState('');
-  
+  const { tasks, input, setInput, addTask, deleteTask, toggleComplete } = useTasks();
+ // Calculate total number of tasks
+ const totalTasks = tasks.length;
 
-  const addTask = () => {
-    if (input.trim() !== '') {
-      setTasks([...tasks, { text: input, completed: false }]);
-      setInput('');
-    }
-  };
-
-  const deleteTask = (index) => {
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
-    setTasks(newTasks);
-  };
-
-  const toggleComplete = (index) => {
-    const newTasks = [...tasks];
-    newTasks[index].completed = !newTasks[index].completed;
-    setTasks(newTasks);
-  };
+ // Calculate number of completed tasks
+ const completedTasks = tasks.filter(task => task.completed).length;
 
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col justify-center items-center text-white">
@@ -33,7 +18,7 @@ function App() {
           <p>Keep it up!</p>
         </div>
         <div className='flex items-center justify-center w-[70px] h-[70px] text-[20px] font-bold rounded-full bg-orange-500'>
-          1/2
+        {completedTasks}/{totalTasks}
         </div>
       </div>
       <div className="bg-gray-800 rounded-md p-8">
